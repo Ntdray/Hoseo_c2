@@ -2,7 +2,7 @@
 
 #define MAX_PRODUCTS 100
 
-// 제품 분류 정보보
+// 제품 분류 정보
 typedef struct {
     int id;
     int stock_qty;
