@@ -43,9 +43,7 @@ void add_stock(Product products[], int *count) {
             printf("(입력)입고수량 : ");
             scanf("%d", &stock_qty);
             products[index].stock_qty += stock_qty;
-            printf("상품 ID %d에 %d의 재고가 추가되었습니다.\n", id, stock_qty);
-        } else {
-            // 상품이 존재하지 않을 떄떄
+            printf("상품 ID %d에 %d의 재고가 추가되었습니다.\n", id, stock_qty);때
             if (*count < MAX_PRODUCTS) {
                 printf("상품 ID %d는 존재하지 않습니다.\n", id);
             
