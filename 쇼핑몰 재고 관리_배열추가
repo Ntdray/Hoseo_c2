@@ -185,7 +185,7 @@ void display_status(Product products[], int count) {
         }
     }
     printf("--------------------\n");
-
+}
 int main() {
     Product products[MAX_PRODUCTS];
     int product_count = 0;
