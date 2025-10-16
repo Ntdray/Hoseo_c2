@@ -217,7 +217,7 @@ int main() {
     int choice;
 
     // 인덱스 초기화
-    products[0] = (Product){1, 0, 0};   strcpy(products[0].name, "상품명 미등록"); //strcpy 문자열 복사사
+    products[0] = (Product){1, 0, 0};   strcpy(products[0].name, "상품명 미등록"); //strcpy 문자열 복사
     products[1] = (Product){2, 0, 0};   strcpy(products[1].name, "상품명 미등록");
     products[2] = (Product){3, 0, 0};   strcpy(products[2].name, "상품명 미등록");
     products[3] = (Product){4, 0, 0};   strcpy(products[3].name, "상품명 미등록");
