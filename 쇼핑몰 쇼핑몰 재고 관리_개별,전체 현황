@@ -11,8 +11,10 @@ typedef struct {
     int stock_qty;
     int sales_qty;
     char name[MAX_NAME_LENGTH];
+    int price;
 } Product;
 
+long long total_revenue = 0;
 // ID로 상품 인덱스를 찾는 함수
 int find_product_index(Product products[], int count, int id) {
     for (int i = 0; i < count; i++) {
@@ -136,11 +138,20 @@ void Record_sale(Product products[], int count) {
             if (products[i].stock_qty >= total_sale) {
                 products[i].stock_qty -= total_sale;
                 products[i].sales_qty += total_sale;
+                
+                long long current_revenue = 0; // 이 판매 기록에서 발생한 매출액
+
+                for (int i = 0; i < count; i++) {
+                    if (products[i].stock_qty >= total_sale) {
+                        //(재고/판매량 업데이트)
+                        //매출액 계산 및 누적
+                        current_revenue += (long long)total_sale * products[i].price;
             } else {
                 printf("상품 ID %d의 재고가 부족하여 판매를 완료할 수 없습니다.\n", products[i].id);
             }
         }
-        printf("모든 상품의 판매가 기록되었습니다.\n");
+        total_revenue += current_revenue;
+        printf("모든 상품의 판매가 기록되었습니다.(총 %lld원)\n", current_revenue);
     } else if (choice == 2) {
         int id, sales_qty;
         printf("(입력)상품ID : ");
@@ -156,6 +167,8 @@ void Record_sale(Product products[], int count) {
             if (products[index].stock_qty >= sales_qty) {
                 products[index].stock_qty -= sales_qty;
                 products[index].sales_qty += sales_qty;
+                long long revenue = (long long)sales_qty * products[index].price;
+                total_revenue += revenue;
                 printf("상품 ID %d에 %d의 판매가 기록되었습니다.\n", id, sales_qty);
             } else {
                 printf("상품 ID %d의 재고(%d)가 부족하여 판매를 완료할 수 없습니다.\n", id, products[index].stock_qty);
@@ -169,6 +182,7 @@ void Record_sale(Product products[], int count) {
 }
 
 // 상품 재고 및 판매 현황 표시 함수
+//개별
 void Individual_status(Product products[], int count) {
     if (count == 0) {
         printf("표시할 상품이 없습니다.\n");
@@ -205,7 +219,7 @@ void Individual_status(Product products[], int count) {
     }
     printf("--------------------\n");
 }
-
+//총합
 void Overall_status(Product products[], int count) {
     if (count == 0) {
         printf("표시할 상품이 없습니다.\n");
@@ -234,6 +248,7 @@ void Overall_status(Product products[], int count) {
     printf("\n--- 상품 현황 ---\n");
     printf("총 재고수량 : %d\n", total_stock);
     printf("총 판매량 : %d\n", total_sales);
+    printf("💰 총 매출액 : **%lld원**\n", total_revenue);
     
     if (total_sales > 0) {
         printf("가장 많이 판매된 상품 : ID %d, 판매량 %d\n", 
@@ -253,11 +268,11 @@ int main() {
     int choice;
 
     // 인덱스 초기화
-    products[0] = (Product){1, 0, 0};   strcpy(products[0].name, "상품명 미등록"); //strcpy 문자열 복사
-    products[1] = (Product){2, 0, 0};   strcpy(products[1].name, "상품명 미등록");
-    products[2] = (Product){3, 0, 0};   strcpy(products[2].name, "상품명 미등록");
-    products[3] = (Product){4, 0, 0};   strcpy(products[3].name, "상품명 미등록");
-    products[4] = (Product){5, 0, 0};   strcpy(products[4].name, "상품명 미등록");
+    products[0] = (Product){1, 0, 0, "", 0};   strcpy(products[0].name, "상품명 미등록"); //strcpy 문자열 복사
+    products[1] = (Product){2, 0, 0, "", 0};   strcpy(products[1].name, "상품명 미등록");
+    products[2] = (Product){3, 0, 0, "", 0};   strcpy(products[2].name, "상품명 미등록");
+    products[3] = (Product){4, 0, 0, "", 0};   strcpy(products[3].name, "상품명 미등록");
+    products[4] = (Product){5, 0, 0, "", 0};   strcpy(products[4].name, "상품명 미등록");
     product_count = 5;
 
     do {
