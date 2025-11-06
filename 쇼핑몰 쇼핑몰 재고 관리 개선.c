@@ -43,7 +43,6 @@ void Add_stock(Product products[], int *count) {
 
     // ------------------- 1. 기존 상품 업데이트 -------------------
     if (index != -1) {
-        // 기존 상품이므로 상품명, 판매가격 입력은 건너뜁니다.
         printf("상품 ID %d는 기존 상품(%s)입니다. 재고만 추가합니다. (현재 재고: %d)\n", 
                id, products[index].name, products[index].stock_qty);
 
@@ -288,3 +287,4 @@ int main() {
 
     return 0;
 }
+
