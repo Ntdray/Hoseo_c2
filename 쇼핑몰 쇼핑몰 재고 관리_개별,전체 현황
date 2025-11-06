@@ -15,6 +15,7 @@ typedef struct {
 } Product;
 
 long long total_revenue = 0;
+
 // ID로 상품 인덱스를 찾는 함수
 int find_product_index(Product products[], int count, int id) {
     for (int i = 0; i < count; i++) {
@@ -134,22 +135,21 @@ void Record_sale(Product products[], int count) {
             printf("판매수량은 0보다 커야 합니다.\n");
             return;
         }
+        
+        long long current_revenue = 0; // 이 판매 기록에서 발생한 매출액
+        int failed_count = 0;
+        
         for (int i = 0; i < count; i++) {
             if (products[i].stock_qty >= total_sale) {
                 products[i].stock_qty -= total_sale;
                 products[i].sales_qty += total_sale;
                 
-                long long current_revenue = 0; // 이 판매 기록에서 발생한 매출액
-
-                for (int i = 0; i < count; i++) {
-                    if (products[i].stock_qty >= total_sale) {
-                        //(재고/판매량 업데이트)
-                        //매출액 계산 및 누적
-                        current_revenue += (long long)total_sale * products[i].price;
-            } else {
-                printf("상품 ID %d의 재고가 부족하여 판매를 완료할 수 없습니다.\n", products[i].id);
+                        //(재고/판매량 업데이트) 매출액 계산 및 누적
+                current_revenue += (long long)total_sale * products[i].price;
+            } else {printf("상품 ID %d의 재고가 부족하여 판매를 완료할 수 없습니다.\n", products[i].id);
             }
         }
+        
         total_revenue += current_revenue;
         printf("모든 상품의 판매가 기록되었습니다.(총 %lld원)\n", current_revenue);
     } else if (choice == 2) {
@@ -214,7 +214,12 @@ void Individual_status(Product products[], int count) {
         printf("등록된 상품이 없습니다.\n");
     } else {
         for (int i = 0; i < count; i++) {
-            printf(" - 상품 ID %d : %d개\n", products[i].id, products[i].stock_qty);
+            printf(" - 상품 ID %d : %d개\n",
+            products[i].id,
+            products[i].name, 
+            products[i].price,
+            products[i].stock_qty,
+            products[i].sales_qty);
         }
     }
     printf("--------------------\n");
@@ -300,7 +305,7 @@ int main() {
                 printf("잘못된 선택입니다. 다시 시도해주세요.\n");
                 break;
         }
-    } while (choice != 4);
+    } while (choice != 5);
 
     return 0;
 }
