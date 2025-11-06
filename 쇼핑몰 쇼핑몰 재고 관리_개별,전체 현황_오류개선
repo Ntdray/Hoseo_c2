@@ -73,7 +73,7 @@ void Add_stock(Product products[], int *count) {
             return;
         }
 
-        printf("🚨 상품 ID %d는 신규 상품입니다. 등록을 시작합니다.\n", id);
+        printf("상품 ID %d는 신규 상품입니다. 등록을 시작합니다.\n", id);
 
         // 1. 상품명 입력
         printf("상품명: (입력) 상품명 입력 ");
@@ -253,7 +253,7 @@ void Overall_status(Product products[], int count) {
     printf("\n--- 상품 현황 ---\n");
     printf("총 재고수량 : %d\n", total_stock);
     printf("총 판매량 : %d\n", total_sales);
-    printf("💰 총 매출액 : **%lld원**\n", total_revenue);
+    printf("총 매출액 : **%lld원**\n", total_revenue);
     
     if (total_sales > 0) {
         printf("가장 많이 판매된 상품 : ID %d, 판매량 %d\n", 
